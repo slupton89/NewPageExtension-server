@@ -2,12 +2,14 @@ const express = require('express')
 const http = require('http')
 const socketIo = require('socket.io')
 const axios = require('axios')
+const cors = require('cors')
 
 const { PORT, DARKSKY_API_KEY } = require('./config')
 const weather = require('./routes/weather')
 
 const app = express()
 
+app.use(cors())
 app.use(weather)
 
 const server = http.createServer(app)
@@ -34,7 +36,7 @@ const getApiAndEmit = async socket => {
   console.log('fetching')
   try {
     const res = await axios.get(`https://api.darksky.net/forecast/${DARKSKY_API_KEY}/${userCoords[0]},${userCoords[1]}`)
-    socket.emit('FromAPI', res.data.currently.temperature)
+    socket.emit('FromAPI', res.data.currently)
   } catch (error) {
     console.error(`Error: ${error.code}`)
   }
