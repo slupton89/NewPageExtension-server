@@ -8,7 +8,7 @@ const cors = require('cors')
 var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
 var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
 
-const weather = require('./routes/weather')
+// const weather = require('./routes/weather')
 
 const app = express()
 
@@ -17,10 +17,15 @@ app.use(
     origin: 'http://localhost:3000'
   })
 )
-app.use(weather)
+// app.use(weather)
 
 const server = http.createServer(app)
 const io = socketIo(server)
+
+app.get('/', (req, res) => {
+  res.send({ response: 'Working'}).status(200)
+  res.end('Nothing to see here')
+})
 
 let interval
 let userCoords
