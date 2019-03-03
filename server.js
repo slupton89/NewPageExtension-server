@@ -4,7 +4,10 @@ const socketIo = require('socket.io')
 const axios = require('axios')
 const cors = require('cors')
 
-const { PORT, DARKSKY_API_KEY } = require('./config')
+// const { PORT, DARKSKY_API_KEY } = require('./config')
+var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
+var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
+
 const weather = require('./routes/weather')
 
 const app = express()
@@ -48,4 +51,6 @@ const getApiAndEmit = async socket => {
 
 
 
-server.listen(PORT, () => console.log(`Listening on PORT ${PORT}`))
+server.listen(server_port, server_ip_address, function () {
+  console.log( "Listening on " + server_ip_address + ", port " + server_port )
+});
