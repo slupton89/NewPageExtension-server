@@ -4,10 +4,7 @@ const express = require('express')
 // const axios = require('axios')
 // const cors = require('cors')
 
-// const { PORT, DARKSKY_API_KEY } = require('./config')
-var server_port = process.env.OPENSHIFT_NODEJS_PORT || 8080
-var server_ip_address = process.env.OPENSHIFT_NODEJS_IP || '127.0.0.1'
-
+const { PORT, DARKSKY_API_KEY } = require('./config')
 // const weather = require('./routes/weather')
 
 const app = express()
@@ -56,6 +53,6 @@ app.get('/', (req, res) => {
 
 
 
-app.listen(server_port, server_ip_address, function () {
-  console.log( "Listening on " + server_ip_address + ", port " + server_port )
+app.listen(PORT, function () {
+  console.log( "Listening on port " + PORT )
 });
