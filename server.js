@@ -8,6 +8,8 @@ const { PORT, DARKSKY_API_KEY } = require('./config')
 const weather = require('./routes/weather')
 
 const app = express()
+const server = http.createServer(app)
+const io = socketIo(server)
 
 app.use(
   cors({
@@ -16,8 +18,6 @@ app.use(
 )
 app.use(weather)
 
-const server = http.createServer(app)
-const io = socketIo(server)
 
 app.get('/', (req, res) => {
   res.send({ response: 'Working'}).status(200)
@@ -50,6 +50,6 @@ const getApiAndEmit = async socket => {
   }
 }
 
-app.listen(PORT, function () {
+server.listen(PORT, function () {
   console.log( "Listening on port " + PORT )
 });
