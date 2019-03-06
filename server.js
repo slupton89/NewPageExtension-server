@@ -50,6 +50,6 @@ const getApiAndEmit = async socket => {
   }
 }
 
-app.listen(PORT, function () {
+http.listen(PORT, function () {
   console.log( "Listening on port " + PORT )
 });
