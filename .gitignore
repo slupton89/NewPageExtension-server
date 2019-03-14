@@ -79,3 +79,5 @@ now.json
 
 # DynamoDB Local files
 .dynamodb/
+
+yarn.lock
