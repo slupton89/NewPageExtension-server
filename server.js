@@ -21,7 +21,7 @@ app.use(weather)
 app.use(backgroundRoute)
 
 app.get('/', (req, res) => {
-  res.send({ response: 'Working'}).status(200)
+  res.send('Nothing to see here 🙂').status(200)
 })
 
 let interval

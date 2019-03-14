@@ -9,22 +9,20 @@ const Flickr = require('flickrapi'),
 const backgroundRouter = express.Router()
 
 backgroundRouter.get('/bg', (req, res) => {
-  res.send({ response: 'Space!'}).status(200)
+  res.send('Nothing to see here 🙂').status(200)
 })
 
 
-backgroundRouter.get('/bg/space/', (req, res, next) => {
-  console.log('space!')
-  res.send('Yup')
+backgroundRouter.get('/bg/space', (req, res, next) => {
   Flickr.tokenOnly(flickerOptions, (error, flickr) => {
     flickr.photos.search({
       text: 'space landscape',
       per_page: 1
     }, (err, result) => {
-          console.log(err !== null ? err : result.photo)
-        })
+          err === true ? res.send({ error: err }).status(500)
+                       : res.send(result.photos.photo)
+      })
   })
-
 })
 
 module.exports = backgroundRouter
