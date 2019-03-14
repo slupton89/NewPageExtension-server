@@ -5,7 +5,7 @@ const axios = require('axios')
 const cors = require('cors')
 
 const { PORT, DARKSKY_API_KEY } = require('./config')
-const weather = require('./routes/weather')
+const weatherRouter = require('./routes/weather')
 const backgroundRoute = require('./routes/backgrounds')
 
 const app = express()
@@ -17,12 +17,8 @@ app.use(
     origin: 'http://localhost:3000'
   })
 )
-app.use(weather)
+app.use(weatherRouter)
 app.use(backgroundRoute)
-
-app.get('/', (req, res) => {
-  res.send({ response: 'Working'}).status(200)
-})
 
 let interval
 let userCoords
