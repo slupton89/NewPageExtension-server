@@ -6,6 +6,7 @@ const cors = require('cors')
 
 const { PORT, DARKSKY_API_KEY } = require('./config')
 const weather = require('./routes/weather')
+const backgroundRoute = require('./routes/backgrounds')
 
 const app = express()
 const server = http.createServer(app)
@@ -17,7 +18,7 @@ app.use(
   })
 )
 app.use(weather)
-
+app.use(backgroundRoute)
 
 app.get('/', (req, res) => {
   res.send({ response: 'Working'}).status(200)
