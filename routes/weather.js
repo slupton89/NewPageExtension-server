@@ -1,9 +1,9 @@
 const express = require('express')
 
-const router = express.Router()
+const weatherRouter = express.Router()
 
-router.get('/', (req, res) => {
+weatherRouter.get('/', (req, res) => {
     res.send('Nothing to see here 🙂').status(200)
 })
 
-module.exports = router
+module.exports = weatherRouter
