@@ -9,19 +9,18 @@ const Flickr = require('flickrapi'),
 const backgroundRouter = express.Router()
 
 backgroundRouter.get('/bg', (req, res, next) => {
-  if(req.query.type) {
+  if(req.query.id) {
     Flickr.tokenOnly(flickerOptions, (error, flickr) => {
-      flickr.photos.search({
-        text: req.query.type,
-        per_page: 10
+      flickr.galleries.getPhotos({
+        gallery_id: req.query.id,
       }, (err, result) => {
             err === true ? res.send({ error: err }).status(500)
-                        : res.send(result.photos.photo)
+                        : res.send(result.photos).status(200)
         })
         error !== null ? console.log(error) : null
     })
   } else {
-    res.send('Nothing to see here 🙂').status(200)
+    res.send('Nothing to see here 🙂').status(204)
   }
 })
 
