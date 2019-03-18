@@ -14,10 +14,10 @@ backgroundRouter.get('/bg', (req, res, next) => {
       flickr.galleries.getPhotos({
         gallery_id: req.query.id,
       }, (err, result) => {
-            err === true ? res.send({ error: err }).status(500)
-                        : res.send(result.photos).status(200)
+            return err === true ? res.send({ error: err }).status(500)
+                                : res.json(result.photos.photo)
         })
-        error !== null ? console.log(error) : null
+        return error !== null ? console.error(error) : null
     })
   } else {
     res.send('Nothing to see here 🙂').status(204)
