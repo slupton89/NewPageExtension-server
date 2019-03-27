@@ -4,7 +4,7 @@ const socketIo = require('socket.io')
 const axios = require('axios')
 const cors = require('cors')
 
-const { PORT, DARKSKY_API_KEY } = require('./config')
+const { PORT, DARKSKY_API_KEY, ORIGIN } = require('./config')
 const weatherRouter = require('./routes/weather')
 const backgroundRoute = require('./routes/backgrounds')
 
@@ -14,7 +14,7 @@ const io = socketIo(server)
 
 app.use(
   cors({
-    origin: 'http://localhost:3000'
+    origin: 'chrome-extension://calpjhkfjoignkfcjpnmmpdlpeeokkff'
   })
 )
 app.use(weatherRouter)
