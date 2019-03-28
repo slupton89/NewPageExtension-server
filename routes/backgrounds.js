@@ -1,14 +1,25 @@
 const express = require('express')
-const { FLICKR_API_KEY, FLICKR_SECRET } = require('../config')
+const { FLICKR_API_KEY, FLICKR_SECRET, ORIGIN } = require('../config')
 const Flickr = require('flickrapi'),
       flickerOptions = {
         api_key: FLICKR_API_KEY,
         secret: FLICKR_SECRET
       }
+const cors = require('cors')
+const whitelist = [ORIGIN, 'http://localhost:3000']
+const corsOptions = {
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1) {
+      callback(null, true)
+    } else {
+      callback(new Error('Not allowed by CORS'))
+    }
+  }
+}
 
 const backgroundRouter = express.Router()
 
-backgroundRouter.get('/bg', (req, res, next) => {
+backgroundRouter.get('/bg', cors(corsOptions), (req, res, next) => {
   if(req.query.id) {
     Flickr.tokenOnly(flickerOptions, (error, flickr) => {
       flickr.galleries.getPhotos({

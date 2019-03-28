@@ -2,27 +2,15 @@ const express = require('express')
 const http = require('http')
 const socketIo = require('socket.io')
 const axios = require('axios')
-const cors = require('cors')
 
-const { PORT, DARKSKY_API_KEY, ORIGIN } = require('./config')
+const { PORT, DARKSKY_API_KEY } = require('./config')
 const weatherRouter = require('./routes/weather')
 const backgroundRoute = require('./routes/backgrounds')
 
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
-const whitelist = [ORIGIN, 'http://localhost:3000']
-app.use(
-  cors({
-    origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1) {
-        callback(null, true)
-      } else {
-        callback(new Error('Not allowed by CORS'))
-      }
-    }
-  })
-)
+
 app.use(weatherRouter)
 app.use(backgroundRoute)
 
