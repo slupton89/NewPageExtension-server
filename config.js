@@ -5,5 +5,5 @@ module.exports = {
   FLICKR_SECRET: process.env.FLICKR_SECRET,
   DARKSKY_API_KEY: process.env.DARKSKY_API_KEY,
   PORT: process.env.PORT,
-  ORIGIN: process.env.ORIGIN
+  ORIGIN: process.env.ORIGIN || 'localhost:3000'
 }

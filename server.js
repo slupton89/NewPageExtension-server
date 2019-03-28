@@ -11,10 +11,16 @@ const backgroundRoute = require('./routes/backgrounds')
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
-
+const whitelist = [ORIGIN, 'http://localhost:3000']
 app.use(
   cors({
-    origin: 'chrome-extension://calpjhkfjoignkfcjpnmmpdlpeeokkff'
+    origin: function (origin, callback) {
+      if (whitelist.indexOf(origin) !== -1) {
+        callback(null, true)
+      } else {
+        callback(new Error('Not allowed by CORS'))
+      }
+    }
   })
 )
 app.use(weatherRouter)
