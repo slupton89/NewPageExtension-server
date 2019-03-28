@@ -18,10 +18,8 @@ let interval
 let userCoords
 
 io.on('connection', socket => {
-  console.log('New client connected')
   socket.on('message', (loc) => {
     userCoords = loc
-    console.log(userCoords)
     return getApiAndEmit(socket)
   })
   if(interval) {

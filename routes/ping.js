@@ -8,7 +8,6 @@ const corsOptions = {
 const pingRouter = express.Router()
 
 pingRouter.get('/ping', cors(corsOptions), (req, res, next) => {
-  console.log('hellp')
   res.send('Up!').status(200)
 })
 
