@@ -5,15 +5,15 @@ const axios = require('axios')
 
 const { PORT, DARKSKY_API_KEY } = require('./config')
 const weatherRouter = require('./routes/weather')
-const backgroundRoute = require('./routes/backgrounds')
-
+const backgroundRouter = require('./routes/backgrounds')
+const pingRouter = require('./routes/ping')
 const app = express()
 const server = http.createServer(app)
 const io = socketIo(server)
 
 app.use(weatherRouter)
-app.use(backgroundRoute)
-
+app.use(backgroundRouter)
+app.use(pingRouter)
 let interval
 let userCoords
 
